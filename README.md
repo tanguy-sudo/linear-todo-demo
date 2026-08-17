@@ -31,6 +31,19 @@ Dans Linear :
 4. Activer l'accès au code puis les **Coding sessions** dans **Settings → AI**.
 5. Dans l'équipe, configurer les automatisations de statut des pull requests.
 
+### Règles de statut
+
+Configurer les automatisations de l'équipe Tanguy dans **Settings → Teams → Tanguy → Workflows & automations → Pull request and commit automations** :
+
+| Événement GitHub | Statut Linear |
+| --- | --- |
+| Commit ou branche poussée | In Progress |
+| Pull request ouverte | In Review |
+| Pull request prête à fusionner | In Review |
+| Pull request fusionnée vers `main` | Done |
+
+Dans l'équipe Tanguy actuelle, `In Review` est le statut utilisé pour une PR prête à fusionner. Les PR doivent cibler `main`, utiliser le format de branche `tanguyjouvin/tan-<numéro>-<description>` et contenir `Fixes TAN-<numéro>`. Le workflow `Validate Linear reference` bloque les PR sans référence `TAN-…`.
+
 Ensuite, créer une issue suffisamment précise, puis demander à Linear Agent de l'implémenter. Une session de codage peut créer la branche, modifier le code et ouvrir une pull request brouillon. La PR doit contenir l'identifiant de l'issue, par exemple `Fixes TODO-1`, pour relier automatiquement les deux outils.
 
 ## Déploiement
