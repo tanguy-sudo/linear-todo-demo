@@ -18,7 +18,9 @@ test("filtre, bascule et supprime les tâches", () => {
   ];
 
   assert.equal(visibleTodos(todos, "open").length, 1);
-  assert.equal(visibleTodos(todos, "all", "mails")[0].id, "2");
+  assert.equal(visibleTodos(todos, "all", "MAILS")[0].id, "2");
+  assert.equal(visibleTodos(todos, "done", "MAILS")[0].id, "2");
+  assert.equal(visibleTodos(todos, "open", "MAILS").length, 0);
   assert.equal(toggleTodo(todos, "1")[0].completed, true);
   assert.equal(removeTodo(todos, "1").length, 1);
   assert.equal(removeCompleted(todos).length, 1);
