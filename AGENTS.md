@@ -2,7 +2,7 @@
 
 ## Project
 
-This is a dependency-free browser application. Keep the implementation in plain HTML, CSS, and modern JavaScript unless an issue explicitly requires another stack.
+This is an Angular standalone application using TypeScript. Reuse Angular signals, components, browser APIs, and the existing todo domain before adding dependencies.
 
 Tasks are stored in `localStorage`; do not add a backend or authentication for the demo without a dedicated issue.
 
@@ -16,7 +16,9 @@ Tasks are stored in `localStorage`; do not add a backend or authentication for t
 
 ## Verification
 
-Run `npm test` and `npm run check` before opening a pull request. For UI changes, also serve the repository locally and check the desktop and mobile layouts.
+Run `npm run lint`, `npm test`, and `npm run build` before opening a pull request. For UI changes, also run `npm start` and check the desktop and mobile layouts.
+
+The production output is `dist/linear-todo-demo/browser`; keep GitHub Pages pointed at that directory.
 
 ## Scope
 
