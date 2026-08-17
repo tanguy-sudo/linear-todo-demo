@@ -26,12 +26,18 @@ npm run check
 Dans Linear :
 
 1. Ouvrir **Settings → Features → Integrations → GitHub**.
-2. Activer l'intégration et sélectionner le dépôt privé `tanguy-jouvin_cnp/linear-todo-demo`.
+2. Activer l'intégration et sélectionner le dépôt `tanguy-sudo/linear-todo-demo`.
 3. Connecter également le compte GitHub personnel dans **Settings → Connected accounts**.
 4. Activer l'accès au code puis les **Coding sessions** dans **Settings → AI**.
 5. Dans l'équipe, configurer les automatisations de statut des pull requests.
 
 Ensuite, créer une issue suffisamment précise, puis demander à Linear Agent de l'implémenter. Une session de codage peut créer la branche, modifier le code et ouvrir une pull request brouillon. La PR doit contenir l'identifiant de l'issue, par exemple `Fixes TODO-1`, pour relier automatiquement les deux outils.
+
+## Déploiement
+
+Le workflow `.github/workflows/deploy.yml` s'exécute après chaque fusion dans `main`. Il lance les tests, publie les fichiers statiques avec GitHub Pages et expose l'URL dans l'environnement du workflow.
+
+Application en ligne : <https://tanguy-sudo.github.io/linear-todo-demo/>
 
 ## Première issue conseillée
 
