@@ -5,6 +5,7 @@ const priorityLabels = { high: "Haute", medium: "Normale", low: "Basse" };
 const form = document.querySelector("#todo-form");
 const input = document.querySelector("#todo-input");
 const priority = document.querySelector("#todo-priority");
+const searchInput = document.querySelector("#todo-search");
 const list = document.querySelector("#todo-list");
 const feedback = document.querySelector("#feedback");
 const progressCopy = document.querySelector("#progress-copy");
@@ -15,6 +16,7 @@ const filterButtons = document.querySelectorAll("[data-filter]");
 
 let todos = loadTodos();
 let currentFilter = "all";
+let currentQuery = "";
 
 function loadTodos() {
   try {
@@ -33,7 +35,7 @@ function saveTodos() {
 
 function render() {
   const progress = getProgress(todos);
-  const visible = visibleTodos(todos, currentFilter);
+  const visible = visibleTodos(todos, currentFilter, currentQuery);
 
   progressCopy.textContent = progress.total
     ? `${progress.completed} tâche${progress.completed > 1 ? "s" : ""} terminée${progress.completed > 1 ? "s" : ""} sur ${progress.total}`
@@ -127,6 +129,11 @@ filterButtons.forEach((button) => {
     filterButtons.forEach((filterButton) => filterButton.classList.toggle("is-active", filterButton === button));
     render();
   });
+});
+
+searchInput.addEventListener("input", () => {
+  currentQuery = searchInput.value;
+  render();
 });
 
 clearCompletedButton.addEventListener("click", () => {
