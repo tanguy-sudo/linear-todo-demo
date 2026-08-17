@@ -1,0 +1,25 @@
+name: Validate Linear reference
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  linear-reference:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require a Linear issue reference
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+          BODY: ${{ github.event.pull_request.body }}
+          BRANCH: ${{ github.head_ref }}
+        run: |
+          text="$TITLE\n$BODY\n$BRANCH"
+          if ! printf '%s' "$text" | grep -Eiq 'TAN-[0-9]+'; then
+            echo "La PR doit contenir une référence Linear TAN-123 dans son titre, sa description ou sa branche."
+            exit 1
+          fi

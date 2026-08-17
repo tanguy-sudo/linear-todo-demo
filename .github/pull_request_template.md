@@ -1,6 +1,8 @@
 ## Issue Linear
 
-Fixes <!-- TEAM-123 -->
+Fixes TAN-123
+
+<!-- Remplace TAN-123 par l'identifiant exact de l'US Linear. -->
 
 ## Changements
 
