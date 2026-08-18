@@ -65,6 +65,12 @@ Le workflow `.github/workflows/deploy.yml` s'exécute après chaque fusion dans 
 
 Application en ligne : <https://tanguy-sudo.github.io/linear-todo-demo/>
 
+## Échec CI
+
+Le workflow `.github/workflows/ci-failure-report.yml` surveille le workflow `CI`. En cas d'échec sur une PR, il ajoute ou met à jour un commentaire contenant les jobs et étapes en erreur, les logs, une cause probable ou une incertitude et l'action recommandée, puis relance une fois les jobs échoués.
+
+La correction automatique du code nécessite un agent GitHub/Copilot ou Linear payant ; ce dépôt ne fusionne jamais automatiquement.
+
 ## Première issue conseillée
 
 > En tant qu'utilisateur, je veux pouvoir rechercher une tâche par son titre afin de retrouver rapidement une tâche existante.
