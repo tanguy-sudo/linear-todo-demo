@@ -1,25 +1,38 @@
 # Linear Todo Demo
 
-Petite liste de tâches locale conçue pour tester le flux **Linear issue → coding session → branche → pull request GitHub**.
+Application Angular standalone de liste de tâches locale conçue pour tester le flux **Linear issue → branche → pull request GitHub → CI → déploiement**.
 
 ## Lancer l'application
 
-Depuis la racine du dépôt :
+Prérequis : Node.js 22 et npm 11.
+
+Installer les dépendances :
 
 ```powershell
-py -m http.server 4173
+npm ci
 ```
 
-Puis ouvrir <http://localhost:4173>.
+Lancer Angular en développement :
+
+```powershell
+npm start
+```
+
+Puis ouvrir <http://localhost:4200>.
+
+Les tâches sont conservées dans le `localStorage` du navigateur. Il n'y a donc ni serveur ni compte à gérer.
 
 Les tâches sont conservées dans le `localStorage` du navigateur. Il n'y a donc ni serveur ni compte à gérer.
 
 ## Vérifier le code
 
 ```powershell
+npm run lint
 npm test
-npm run check
+npm run build
 ```
+
+Le build de production est généré dans `dist/linear-todo-demo/browser`. Pour GitHub Pages, `npm run build:pages` ajoute le `base-href` `/linear-todo-demo/` nécessaire au sous-chemin du dépôt.
 
 ## Connecter Linear et GitHub
 
@@ -48,7 +61,7 @@ Ensuite, créer une issue suffisamment précise, puis demander à Linear Agent d
 
 ## Déploiement
 
-Le workflow `.github/workflows/deploy.yml` s'exécute après chaque fusion dans `main`. Il lance les tests, publie les fichiers statiques avec GitHub Pages et expose l'URL dans l'environnement du workflow.
+Le workflow `.github/workflows/deploy.yml` s'exécute après chaque fusion dans `main`. Il installe le lockfile avec `npm ci`, lance lint, tests et build, puis publie `dist/linear-todo-demo/browser` avec GitHub Pages et expose l'URL dans l'environnement du workflow.
 
 Application en ligne : <https://tanguy-sudo.github.io/linear-todo-demo/>
 
