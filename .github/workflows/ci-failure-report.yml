@@ -7,10 +7,8 @@ on:
 
 permissions:
   actions: write
-  checks: read
   contents: read
   issues: write
-  pull-requests: write
 
 jobs:
   report:
@@ -18,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Report the failure in the pull request
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
         with:
           script: |
             const run = context.payload.workflow_run;
@@ -60,8 +58,10 @@ jobs:
               .toLowerCase();
             const diagnostic = failedStepNames.includes('npm test')
               ? 'Cause probable : un test automatisé échoue. Corriger le comportement ou l assertion concernée, puis relancer la CI.'
-              : failedStepNames.includes('npm run check')
-                ? 'Cause probable : une erreur de syntaxe JavaScript est détectée. Corriger le fichier signalé dans les logs, puis relancer la CI.'
+              : failedStepNames.includes('npm run lint')
+                ? 'Cause probable : ESLint signale une erreur de qualité. Corriger le fichier indiqué dans les logs, puis relancer la CI.'
+                : failedStepNames.includes('npm run build')
+                  ? 'Cause probable : le build Angular échoue. Corriger l erreur indiquée dans les logs, puis relancer la CI.'
                 : 'Cause indéterminée : consulter les logs du job avant de modifier le code.';
             const logsUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${run.id}`;
             const body = [
@@ -108,7 +108,7 @@ jobs:
 
       - name: Retry failed jobs once
         if: ${{ github.event.workflow_run.run_attempt == 1 }}
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
         with:
           script: |
             await github.rest.actions.reRunWorkflowFailedJobs({

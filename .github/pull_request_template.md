@@ -11,7 +11,8 @@ Fixes TAN-123
 ## Vérifications
 
 - [ ] `npm test`
-- [ ] `npm run check`
+- [ ] `npm run lint`
+- [ ] `npm run build`
 - [ ] Vérification manuelle de l'interface
 
 ## Notes de revue
