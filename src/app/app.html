@@ -1,0 +1,71 @@
+<main class="shell">
+  <section class="app-card" aria-labelledby="page-title">
+    <header class="hero">
+      <p class="eyebrow">Linear Todo Demo · Angular</p>
+      <h1 id="page-title">Une seule liste.<br /><em>Les bonnes priorités.</em></h1>
+      <p class="intro">Capture ce qui compte, avance sans bruit et garde tes tâches dans ce navigateur.</p>
+    </header>
+
+    <section class="progress-panel" aria-label="Progression">
+      <div>
+        <p class="section-label">Aujourd'hui</p>
+        <p class="progress-copy">
+          @if (progress().total) {
+            {{ progress().completed }} tâche{{ progress().completed > 1 ? 's' : '' }} terminée{{ progress().completed > 1 ? 's' : '' }} sur {{ progress().total }}
+          } @else {
+            Aucune tâche pour le moment.
+          }
+        </p>
+      </div>
+      <div class="progress-ring" [style.--progress.%]="progress().percentage" aria-hidden="true">
+        <span>{{ progress().percentage }}%</span>
+      </div>
+    </section>
+
+    <form class="todo-form" (submit)="addTodo($event, titleInput, priorityInput)">
+      <label class="sr-only" for="todo-input">Nouvelle tâche</label>
+      <input #titleInput id="todo-input" name="title" type="text" maxlength="120" placeholder="Ajouter une tâche..." autocomplete="off" required />
+      <label class="sr-only" for="todo-priority">Priorité</label>
+      <select #priorityInput id="todo-priority" name="priority" aria-label="Priorité" value="medium">
+        <option value="medium">Normale</option>
+        <option value="high">Haute</option>
+        <option value="low">Basse</option>
+      </select>
+      <button type="submit" class="add-button">Ajouter <span aria-hidden="true">+</span></button>
+    </form>
+
+    <label class="search-field">
+      <span class="sr-only">Rechercher une tâche</span>
+      <input type="search" [value]="query()" (input)="setQuery($event)" placeholder="Rechercher une tâche..." autocomplete="off" />
+    </label>
+
+    <div class="toolbar">
+      <div class="filters" role="group" aria-label="Filtrer les tâches">
+        <button type="button" class="filter-button" [class.is-active]="filter() === 'all'" (click)="setFilter('all')">Toutes</button>
+        <button type="button" class="filter-button" [class.is-active]="filter() === 'open'" (click)="setFilter('open')">À faire</button>
+        <button type="button" class="filter-button" [class.is-active]="filter() === 'done'" (click)="setFilter('done')">Terminées</button>
+      </div>
+      <button type="button" class="clear-button" [hidden]="progress().completed === 0" (click)="clearCompleted()">Effacer les terminées</button>
+    </div>
+
+    <p class="feedback" role="status" aria-live="polite">{{ feedback() }}</p>
+    <ul class="todo-list" aria-label="Tâches">
+      @if (visibleTodos().length === 0) {
+        <li class="empty-state">{{ todos().length ? 'Aucune tâche dans ce filtre.' : 'Ta liste est prête. Ajoute ta première tâche.' }}</li>
+      } @else {
+        @for (todo of visibleTodos(); track todo.id) {
+          <li class="todo-item" [class.is-done]="todo.completed">
+            <input class="todo-toggle" type="checkbox" [checked]="todo.completed" (change)="toggleTodo(todo.id)" [attr.aria-label]="'Marquer « ' + todo.title + ' » comme terminée'" />
+            <span class="todo-title">{{ todo.title }}</span>
+            <div class="todo-meta">
+              <span class="priority" [class.priority-high]="todo.priority === 'high'" [class.priority-low]="todo.priority === 'low'">{{ priorityLabel(todo.priority) }}</span>
+              <button class="delete-button" type="button" (click)="deleteTodo(todo.id)" [attr.aria-label]="'Supprimer « ' + todo.title + ' »'">×</button>
+            </div>
+          </li>
+        }
+      }
+    </ul>
+  </section>
+
+  <footer class="page-footer">Angular · TypeScript · GitHub Actions · GitHub Pages</footer>
+</main>
