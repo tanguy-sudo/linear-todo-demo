@@ -13,6 +13,7 @@ Tasks are stored in `localStorage`; do not add a backend or authentication for t
 - Use a branch named `feature/<LINEAR-ID>-<short-description>` or `fix/<LINEAR-ID>-<short-description>`.
 - Put the exact Linear issue ID in the pull request title and use a closing magic word such as `Fixes TEAM-123` in the description.
 - Open a draft pull request for review. Do not merge it automatically.
+- On the free Linear plan, the user selects the issue manually; do not assume Loops or Coding sessions are available.
 
 ## Verification
 
